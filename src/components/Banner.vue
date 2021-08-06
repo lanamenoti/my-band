@@ -1,5 +1,6 @@
 <template>
   <section class="banner">
+    <div class="overlay"></div>
     <div class="banner__imgs">
       <img class="images" :class="{'active' : activeFoto1}" src="../assets/banner.png" />
       <img class="images" :class="{'active' : activeFoto2}" src="../assets/banner.jpg" />
@@ -49,11 +50,24 @@ export default {
 <style>
 .banner {
   width: 100%;
-  height: 700px;
+  height: 500px;
   background-color: #212121;
   position: relative;
-  color: #e2e2e2;
+  color: #eeeeee;
+  font-weight: 600;
+  
   overflow: hidden;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(200, 142, 248);
+  z-index: 99;
+  opacity: .2;
 }
 
 .banner__imgs {
@@ -78,6 +92,7 @@ export default {
 
 .banner__content {
   position: relative;
+  opacity: 1;
 }
 
 .banner__content p {

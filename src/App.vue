@@ -1,17 +1,20 @@
 <template>
   <div id="app">
-    <Header></Header>
-    <Banner></Banner>
+    <Header />
+    <Banner />
+    <Exemplo/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Banner from './components/Banner.vue'
+// import Exemplo from './components/Exemplo.vue'
 
 export default {
   name: 'App',
   components: {
+    // Exemplo
     Header, 
     Banner
   }
