@@ -50,7 +50,7 @@ export default {
 <style>
 .banner {
   width: 100%;
-  height: 500px;
+  height: 700px;
   background-color: #212121;
   position: relative;
   color: #eeeeee;
