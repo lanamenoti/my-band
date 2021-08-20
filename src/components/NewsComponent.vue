@@ -8,7 +8,7 @@
       </div>
       <div class="row">
         <div
-          v-for="item in news"
+          v-for="item in newsFiltered"
           :key="item.id"
           :class="{ 'col-md-12': item.id === 1, 'col-md-6': item.id != 1 }"
         >
@@ -22,7 +22,7 @@
             >
           </div>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-12" v-if="isButton">
           <router-link class="news__btn" to="/noticias"
             ><button>Veja mais</button></router-link
           >
@@ -33,7 +33,10 @@
 </template>
 <script>
 export default {
-  name: "NewsHome",
+  name: "NewsComponent",
+  props: {
+    isButton: Boolean,
+  },
   data: function() {
     return {
       news: [
@@ -58,8 +61,40 @@ export default {
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
           img: require("../assets/news.jpg"),
         },
+        {
+          id: 4,
+          titulo: "Noticia um",
+          descricao:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
+          img: require("../assets/news.jpg"),
+        },
+        {
+          id: 5,
+          titulo: "Noticia dois",
+          descricao:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
+          img: require("../assets/news.jpg"),
+        },
+        {
+          id: 6,
+          titulo: "Noticia três",
+          descricao:
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
+          img: require("../assets/news.jpg"),
+        },
       ],
     }
+  },
+  computed: {
+    newsFiltered: function() {
+      const news = this.news
+
+      if (this.isButton) {
+        return news.slice(0, 3)
+      }
+
+      return news
+    },
   },
 }
 </script>
