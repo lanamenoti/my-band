@@ -84,7 +84,9 @@ export default {
   width: 200px;
 }
 .discografia__card a {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 70px;
   height: 30px;
   background-color: #e2e2e2;

@@ -1,8 +1,8 @@
 <template>
   <div class="card">
-    <h2>{{ titulo }}</h2>
-    <p>{{ descricao }}</p>
-    <button>Detalhe</button>
+    <h2 class="card__tittle">{{ titulo }}</h2>
+    <p class="card__description">{{ descricao }}</p>
+    <b-button variant="outline-secondary">Detalhe</b-button>
   </div>
 </template>
 
@@ -13,7 +13,7 @@ export default {
     titulo: String,
     descricao: String,
   },
-}
+};
 </script>
 
 <style>
@@ -26,21 +26,13 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.card h2 {
+.card .card__tittle {
   font-size: 18px;
   font-weight: bold;
   color: #000000;
 }
-.card p {
+.card .card__description {
   font-size: 14px;
   color: #000000;
-}
-.card button {
-  width: 170px;
-  height: 40px;
-  border-radius: 6px;
-  background-color: #c3121c;
-  color: #ffffff;
-  border: none;
 }
 </style>

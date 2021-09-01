@@ -8,16 +8,17 @@
       </div>
       <div class="row">
         <div
-          v-for="item in newsFiltered"
-          :key="item.id"
-          :class="{ 'col-md-12': item.id === 1, 'col-md-6': item.id != 1 }"
+          v-for="(item, index) in newsFiltered"
+          :key="item._id"
+          :class="{ 'col-md-12': index === 0, 'col-md-6': item._id != 1 }"
         >
           <div class="news__box">
             <img :src="item.img" />
-            <h3>{{ item.titulo }}</h3>
-            <p>{{ item.descricao }}</p>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
             <router-link
-              :to="{ name: 'noticias.detalhe', params: { id: item.id } }"
+              class="news__more"
+              :to="{ name: 'noticias.detalhe', params: { id: item._id } }"
               ><span>Leia mais</span></router-link
             >
           </div>
@@ -37,66 +38,39 @@ export default {
   props: {
     isButton: Boolean,
   },
-  data: function() {
-    return {
-      news: [
-        {
-          id: 1,
-          titulo: "Noticia um",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-        {
-          id: 2,
-          titulo: "Noticia dois",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-        {
-          id: 3,
-          titulo: "Noticia três",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-        {
-          id: 4,
-          titulo: "Noticia um",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-        {
-          id: 5,
-          titulo: "Noticia dois",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-        {
-          id: 6,
-          titulo: "Noticia três",
-          descricao:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took",
-          img: require("../assets/news.jpg"),
-        },
-      ],
-    }
+  data: function () {
+    return { news: [] };
   },
   computed: {
-    newsFiltered: function() {
-      const news = this.news
+    newsFiltered: function () {
+      const news = this.news;
 
       if (this.isButton) {
-        return news.slice(0, 3)
+        return news.slice(0, 3);
       }
 
-      return news
+      return news;
     },
   },
-}
+  methods: {
+    getNews: async function () {
+      const result = await fetch("http://localhost:3000/noticias")
+        .then((res) => res.json())
+        .catch((erro) => {
+          return {
+            erro: true,
+            message: erro,
+          };
+        });
+      if (!result.erro) {
+        this.news = result;
+      }
+    },
+  },
+  created: function () {
+    this.getNews();
+  },
+};
 </script>
 <style>
 .news {
@@ -113,8 +87,11 @@ export default {
 .news p {
   font-size: 16px;
 }
+.news__more {
+  text-decoration: none;
+}
 .news span {
-  color: #c3121c;
+  color: #7312c3;
   font-size: 14px;
 }
 .news img {
@@ -126,14 +103,29 @@ export default {
   margin-bottom: 30px;
 }
 .news button {
-  width: 170px;
-  height: 40px;
-  cursor: pointer;
-  background: #c3121c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 60px;
+  background-color: #e2e2e2;
   color: #212121;
+  text-align: center;
+  text-decoration: none;
+  line-height: 31px;
+  margin-top: 10px;
+  margin-bottom: 30px;
   border-radius: 6px;
-  border: none;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: 600;
+  border: 3px solid transparent;
+}
+
+.news button:hover {
+  border: 3px solid rgba(161, 161, 161, 0.82);
+  background-color: rgba(108, 28, 173, 0.342);
+  color: #e2e2e2;
+  transition: 0.5s ease-in;
 }
 
 .news__btn {
@@ -142,5 +134,6 @@ export default {
   margin: 30px auto;
   width: 170px;
   height: 40px;
+  text-decoration: none;
 }
 </style>
